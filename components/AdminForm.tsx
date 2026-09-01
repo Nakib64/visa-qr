@@ -5,7 +5,6 @@ import { VisaData, DEFAULT_VISA } from '@/lib/types';
 import { VisaDocument } from './VisaDocument';
 import { ResponsiveVisaViewer } from './ResponsiveVisaViewer';
 import {
-  Upload,
   User,
   FileText,
   CheckCircle,
@@ -46,21 +45,6 @@ export function AdminForm({ initialData, onSaved }: AdminFormProps) {
     }
   };
 
-  const handlePhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setFormData((prev) => ({ ...prev, photo: reader.result as string }));
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const handleRemovePhoto = () => {
-    setFormData((prev) => ({ ...prev, photo: '' }));
-  };
-
   const handleResetToSample = () => {
     setFormData({
       id: formData.id || '',
@@ -87,7 +71,8 @@ export function AdminForm({ initialData, onSaved }: AdminFormProps) {
       const json = await res.json();
       if (json.success) {
         setFormData(json.data);
-        setSaveSuccess(`Visa saved successfully in PostgreSQL database! ID: ${json.data.id || json.data.idNumber}`);
+        const docId = json.data.electronicVisaNumber || json.data.id;
+        setSaveSuccess(`Visa document saved successfully! Document ID: ${docId}`);
         if (onSaved) onSaved(json.data);
       } else {
         alert('Failed to save visa: ' + json.error);
@@ -110,7 +95,7 @@ export function AdminForm({ initialData, onSaved }: AdminFormProps) {
           </div>
           <div className="flex items-center gap-2">
             <Link
-              href={`/visa/${encodeURIComponent(formData.id || formData.idNumber)}`}
+              href={`/visa/${encodeURIComponent(formData.electronicVisaNumber || formData.id || formData.idNumber)}`}
               target="_blank"
               className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-semibold shadow transition"
             >
@@ -214,47 +199,6 @@ export function AdminForm({ initialData, onSaved }: AdminFormProps) {
             {/* Tab 1: Personal Info */}
             {activeTab === 'personal' && (
               <div className="space-y-4">
-                {/* Photo Upload */}
-                <div className="bg-slate-950/60 p-4 rounded-xl border border-slate-800 flex items-center gap-5">
-                  <div className="w-20 h-24 bg-slate-900 border border-slate-700 rounded-lg overflow-hidden flex-shrink-0 flex items-center justify-center relative">
-                    {formData.photo ? (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img src={formData.photo} alt="Preview" className="w-full h-full object-cover" />
-                    ) : (
-                      <User className="w-8 h-8 text-slate-600" />
-                    )}
-                  </div>
-                  <div className="flex-1 space-y-2">
-                    <label className="block text-xs font-semibold text-slate-300">
-                      Applicant Photo (Portrait)
-                    </label>
-                    <div className="flex items-center gap-2">
-                      <label className="cursor-pointer inline-flex items-center gap-1.5 px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white text-xs font-medium rounded-lg shadow transition">
-                        <Upload className="w-3.5 h-3.5" />
-                        Choose Photo
-                        <input
-                          type="file"
-                          accept="image/*"
-                          onChange={handlePhotoUpload}
-                          className="hidden"
-                        />
-                      </label>
-                      {formData.photo && (
-                        <button
-                          type="button"
-                          onClick={handleRemovePhoto}
-                          className="px-3 py-1.5 bg-rose-950 hover:bg-rose-900 text-rose-300 border border-rose-800 text-xs font-medium rounded-lg transition"
-                        >
-                          Remove Photo
-                        </button>
-                      )}
-                    </div>
-                    <p className="text-[11px] text-slate-500">
-                      Supported formats: JPG, PNG, WebP (Automatically optimized).
-                    </p>
-                  </div>
-                </div>
-
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {/* ID */}
                   <div>

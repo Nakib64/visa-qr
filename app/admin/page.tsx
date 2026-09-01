@@ -69,7 +69,8 @@ export default function AdminDashboardPage() {
 
   const handleCopyLink = (visa: VisaData) => {
     const origin = window.location.origin;
-    const url = `${origin}/visa/${encodeURIComponent(visa.id || visa.idNumber)}`;
+    const docId = visa.electronicVisaNumber || visa.id || visa.idNumber;
+    const url = `${origin}/visa/${encodeURIComponent(docId)}`;
     navigator.clipboard.writeText(url);
     setCopiedId(visa.id);
     setTimeout(() => setCopiedId(null), 2000);
@@ -282,7 +283,7 @@ export default function AdminDashboardPage() {
 
                               {/* View Public Page */}
                               <Link
-                                href={`/visa/${encodeURIComponent(visa.id || visa.idNumber)}`}
+                                href={`/visa/${encodeURIComponent(visa.electronicVisaNumber || visa.id || visa.idNumber)}`}
                                 target="_blank"
                                 title="Open document page"
                                 className="p-1.5 bg-blue-900/60 hover:bg-blue-800 text-blue-300 rounded-lg transition"

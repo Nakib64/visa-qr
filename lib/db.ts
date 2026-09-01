@@ -159,7 +159,7 @@ export async function getVisaById(id: string): Promise<VisaData | null> {
     try {
       await initPgTable();
       const res = await pool.query(
-        `SELECT * FROM visas WHERE LOWER(id) = LOWER($1) OR LOWER(id_number) = LOWER($1) OR LOWER(electronic_visa_number) = LOWER($1) LIMIT 1`,
+        `SELECT * FROM visas WHERE LOWER(id) = LOWER($1) OR LOWER(electronic_visa_number) = LOWER($1) OR LOWER(id_number) = LOWER($1) OR LOWER(passport_number) = LOWER($1) LIMIT 1`,
         [id]
       );
       if (res.rows.length > 0) {
@@ -176,14 +176,16 @@ export async function getVisaById(id: string): Promise<VisaData | null> {
     visas.find(
       (v) =>
         v.id?.toLowerCase() === search ||
+        v.electronicVisaNumber?.toLowerCase() === search ||
         v.idNumber?.toLowerCase() === search ||
-        v.electronicVisaNumber?.toLowerCase() === search
+        v.passportNumber?.toLowerCase() === search
     ) || null
   );
 }
 
 export async function createVisa(data: Omit<VisaData, 'id'> & { id?: string }): Promise<VisaData> {
-  const id = data.id || data.idNumber || `V${Date.now()}`;
+  const autoDocId = data.electronicVisaNumber?.trim() || `DOC${Date.now()}`;
+  const id = data.id && data.id.trim().length > 0 ? data.id.trim() : autoDocId;
   const now = new Date().toISOString();
 
   const newVisa: VisaData = {
