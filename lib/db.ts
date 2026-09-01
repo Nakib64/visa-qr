@@ -3,32 +3,45 @@ import { Pool } from 'pg';
 import fs from 'fs';
 import path from 'path';
 
-// Local fallback store file path
-const DATA_FILE = path.join(process.cwd(), 'data', 'visas.json');
+// Local fallback store file path (/tmp for serverless environments like Vercel)
+const DATA_FILE = process.env.VERCEL
+  ? path.join('/tmp', 'visas.json')
+  : path.join(process.cwd(), 'data', 'visas.json');
 
 function ensureDataFile() {
-  const dir = path.dirname(DATA_FILE);
-  if (!fs.existsSync(dir)) {
-    fs.mkdirSync(dir, { recursive: true });
-  }
-  if (!fs.existsSync(DATA_FILE)) {
-    fs.writeFileSync(DATA_FILE, JSON.stringify([], null, 2));
+  try {
+    const dir = path.dirname(DATA_FILE);
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
+    }
+    if (!fs.existsSync(DATA_FILE)) {
+      fs.writeFileSync(DATA_FILE, JSON.stringify([], null, 2));
+    }
+  } catch (err) {
+    console.warn('Could not initialize local data file (read-only system):', err);
   }
 }
 
 function readLocalVisas(): VisaData[] {
-  ensureDataFile();
   try {
-    const content = fs.readFileSync(DATA_FILE, 'utf-8');
-    return JSON.parse(content);
-  } catch {
-    return [];
+    ensureDataFile();
+    if (fs.existsSync(DATA_FILE)) {
+      const content = fs.readFileSync(DATA_FILE, 'utf-8');
+      return JSON.parse(content);
+    }
+  } catch (err) {
+    console.warn('Could not read local visas:', err);
   }
+  return [];
 }
 
 function writeLocalVisas(visas: VisaData[]): void {
-  ensureDataFile();
-  fs.writeFileSync(DATA_FILE, JSON.stringify(visas, null, 2));
+  try {
+    ensureDataFile();
+    fs.writeFileSync(DATA_FILE, JSON.stringify(visas, null, 2));
+  } catch (err) {
+    console.warn('Could not write local visas (read-only system):', err);
+  }
 }
 
 // PostgreSQL Client Pool
@@ -242,9 +255,11 @@ export async function createVisa(data: Omit<VisaData, 'id'> & { id?: string }): 
         ]
       );
 
-      // sync local
-      const local = readLocalVisas();
-      writeLocalVisas([newVisa, ...local.filter((v) => v.id !== id)]);
+      // If postgres query was successful, return immediately
+      try {
+        const local = readLocalVisas();
+        writeLocalVisas([newVisa, ...local.filter((v) => v.id !== id)]);
+      } catch {}
       return newVisa;
     } catch (e) {
       console.error('Postgres insert error:', e);
@@ -315,6 +330,15 @@ export async function updateVisa(id: string, data: Partial<VisaData>): Promise<V
           id,
         ]
       );
+      try {
+        const local = readLocalVisas();
+        const idx = local.findIndex((v) => v.id === id);
+        if (idx >= 0) {
+          local[idx] = updated;
+          writeLocalVisas(local);
+        }
+      } catch {}
+      return updated;
     } catch (e) {
       console.error('Postgres update error:', e);
     }
@@ -336,6 +360,12 @@ export async function deleteVisa(id: string): Promise<boolean> {
     try {
       await initPgTable();
       await pool.query(`DELETE FROM visas WHERE id = $1`, [id]);
+      try {
+        const local = readLocalVisas();
+        const filtered = local.filter((v) => v.id !== id);
+        writeLocalVisas(filtered);
+      } catch {}
+      return true;
     } catch (e) {
       console.error('Postgres delete error:', e);
     }
