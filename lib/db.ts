@@ -159,7 +159,7 @@ export async function getVisaById(id: string): Promise<VisaData | null> {
     try {
       await initPgTable();
       const res = await pool.query(
-        `SELECT * FROM visas WHERE id = $1 OR id_number = $1 OR electronic_visa_number = $1 LIMIT 1`,
+        `SELECT * FROM visas WHERE LOWER(id) = LOWER($1) OR LOWER(id_number) = LOWER($1) OR LOWER(electronic_visa_number) = LOWER($1) LIMIT 1`,
         [id]
       );
       if (res.rows.length > 0) {
@@ -171,7 +171,15 @@ export async function getVisaById(id: string): Promise<VisaData | null> {
   }
 
   const visas = readLocalVisas();
-  return visas.find((v) => v.id === id || v.idNumber === id || v.electronicVisaNumber === id) || null;
+  const search = id.toLowerCase();
+  return (
+    visas.find(
+      (v) =>
+        v.id?.toLowerCase() === search ||
+        v.idNumber?.toLowerCase() === search ||
+        v.electronicVisaNumber?.toLowerCase() === search
+    ) || null
+  );
 }
 
 export async function createVisa(data: Omit<VisaData, 'id'> & { id?: string }): Promise<VisaData> {
