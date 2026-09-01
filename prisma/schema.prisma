@@ -1,0 +1,36 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Visa {
+  id                   String   @id @default(uuid())
+  photo                String?  @db.Text
+  idNumber             String
+  surname              String
+  name                 String
+  dateOfBirth          String
+  gender               String
+  nationality          String
+  passportNumber       String
+  passportType         String
+  dateOfExpiry         String
+  electronicVisaNumber String
+  inviter              String
+  classificationOfVisa String
+  entries              String
+  typeOfVisa           String
+  dateOfIssue          String
+  enterBefore          String
+  durationOfStay       String
+  inviterPhone         String
+  showStamps           Boolean  @default(true)
+  notaryNumber         String?  @default("7798")
+  notaryDate           String?  @default("2026-08-24")
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+}
