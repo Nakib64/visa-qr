@@ -33,7 +33,7 @@ export function VisaDocument({ visa, origin = '', isPrintPreview = false }: Visa
         width: '210mm',
         minHeight: '296.5mm',
         maxHeight: '296.5mm',
-        padding: '16mm 18mm 14mm 18mm',
+        padding: 0,
         margin: '0 auto',
         boxSizing: 'border-box',
         position: 'relative',
@@ -41,17 +41,22 @@ export function VisaDocument({ visa, origin = '', isPrintPreview = false }: Visa
       }}
     >
       {/* Top Header Section with Official Mongolia Electronic Visa Banner */}
-      <div className="relative w-full pb-3 border-b-2 border-slate-300 overflow-hidden flex-shrink-0">
+      <div className="relative w-full border-b-2 border-slate-300 overflow-hidden flex-shrink-0">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/mongolia-header-banner.png"
           alt="MONGOLIA Electronic Visa"
-          className="w-full h-auto object-contain block select-none"
+          className="w-full h-auto block select-none"
         />
       </div>
 
       {/* Main Content Area - Expands Vertically to Fill Full Page */}
-      <div className="relative z-10 flex-1 flex flex-col justify-between pt-4 space-y-4">
+      <div
+        className="relative z-10 flex-1 flex flex-col justify-between space-y-4"
+        style={{
+          padding: '12px 18mm 14mm 18mm',
+        }}
+      >
         
         {/* Personal Details Section */}
         <div className="flex gap-8 items-start">

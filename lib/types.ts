@@ -57,3 +57,27 @@ export const DEFAULT_VISA: Omit<VisaData, 'id'> = {
   notaryNumber: '',
   notaryDate: '',
 };
+
+export interface AdminUser {
+  id: string;
+  email: string;
+  name: string;
+  role: string;
+  passwordHash?: string;
+  createdAt?: string;
+  updatedAt?: string;
+}
+
+export interface AdminJwtPayload {
+  id: string;
+  email: string;
+  name: string;
+  role: string;
+}
+
+export interface LoginAttemptRecord {
+  ip: string;
+  attempts: number;
+  lastAttemptAt: number;
+  blockedUntil?: number;
+}

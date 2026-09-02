@@ -10,7 +10,6 @@ import {
   AlertCircle,
   Building2,
   Lock,
-  ArrowRight,
 } from 'lucide-react';
 import { getAllVisas } from '@/lib/db';
 import { VisaSearchForm } from '@/components/VisaSearchForm';
@@ -23,26 +22,7 @@ export default async function HomePage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 via-sky-50/20 to-slate-100/70 text-slate-900 flex flex-col justify-between">
-      
-      {/* Official Government Top Bar */}
-      <div className="bg-slate-900 text-white text-[11px] py-1.5 px-4">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-2 font-medium tracking-wide">
-            <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
-            <span>Government of Mongolia • Immigration Agency Official Portal</span>
-          </div>
-          <div className="flex items-center gap-4 text-slate-300">
-            <span className="hidden sm:inline">24/7 Helpline: +976-1800-1882</span>
-            <Link
-              href="/admin"
-              className="text-slate-200 hover:text-white flex items-center gap-1 font-semibold transition"
-            >
-              <Lock className="w-3 h-3" />
-              Staff Login / Admin
-            </Link>
-          </div>
-        </div>
-      </div>
+
 
       {/* Main Header */}
       <header className="border-b border-slate-200/90 bg-white/90 backdrop-blur-md sticky top-0 z-30 shadow-xs">
@@ -70,16 +50,6 @@ export default async function HomePage() {
             <a href="#notices" className="hover:text-blue-700 transition">Entry Regulations</a>
             <a href="#contact" className="hover:text-blue-700 transition">Contact & Help</a>
           </div>
-
-          <div className="flex items-center gap-3">
-            <Link
-              href="/admin"
-              className="inline-flex items-center gap-1.5 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold shadow-md shadow-blue-600/20 transition-all active:scale-95 cursor-pointer"
-            >
-              Manage Visas
-              <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
-          </div>
         </div>
       </header>
 
@@ -87,7 +57,7 @@ export default async function HomePage() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 space-y-12 flex-1 w-full">
         
         {/* Banner Graphic Frame */}
-        <div className="w-full bg-white rounded-2xl border border-slate-200/90 p-2 sm:p-3 shadow-sm overflow-hidden">
+        <div className="w-full  hidden md:block bg-white rounded-2xl border border-slate-200/90 p-2 sm:p-3 shadow-sm overflow-hidden">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/mongolia-header-banner.png"

@@ -1,0 +1,11 @@
+[
+  {
+    "id": "admin_1788334362228",
+    "email": "admin@immigration.gov.mn",
+    "name": "Chief Visa Officer",
+    "role": "SUPER_ADMIN",
+    "passwordHash": "$2b$10$xXSa7zPTQ9MXjhI29.aQf.yBrFFQt4RXBLBYB.goTDPMihOPRx0Y6",
+    "createdAt": "2026-09-02T07:32:42.227Z",
+    "updatedAt": "2026-09-02T07:32:42.227Z"
+  }
+]
