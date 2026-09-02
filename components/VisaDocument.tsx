@@ -17,7 +17,7 @@ export function VisaDocument({ visa, origin = '', isPrintPreview = false }: Visa
     // Generate verification URL encoded in the QR code
     const baseUrl = origin || (typeof window !== 'undefined' ? window.location.origin : '');
     const verificationUrl = `${baseUrl}/visa/${encodeURIComponent(visa.id || visa.idNumber || visa.electronicVisaNumber)}`;
-    
+
     generateQrDataUrl(verificationUrl).then((url) => {
       setQrCodeUrl(url);
     });
@@ -26,9 +26,8 @@ export function VisaDocument({ visa, origin = '', isPrintPreview = false }: Visa
   return (
     <div
       id="visa-print-container"
-      className={`relative bg-white text-black font-sans box-border overflow-hidden select-text flex flex-col justify-between ${
-        isPrintPreview ? 'shadow-2xl border border-gray-200' : ''
-      }`}
+      className={`relative bg-white text-black font-sans box-border overflow-hidden select-text flex flex-col justify-between ${isPrintPreview ? 'shadow-2xl border border-gray-200' : ''
+        }`}
       style={{
         width: '210mm',
         minHeight: '296.5mm',
@@ -41,7 +40,7 @@ export function VisaDocument({ visa, origin = '', isPrintPreview = false }: Visa
       }}
     >
       {/* Top Header Section with Official Mongolia Electronic Visa Banner */}
-      <div className="relative w-full border-b-2 border-slate-300 overflow-hidden flex-shrink-0">
+      <div className="relative w-full overflow-hidden flex-shrink-0">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/mongolia-header-banner.png"
@@ -52,17 +51,16 @@ export function VisaDocument({ visa, origin = '', isPrintPreview = false }: Visa
 
       {/* Main Content Area - Expands Vertically to Fill Full Page */}
       <div
-        className="relative z-10 flex-1 flex flex-col justify-between space-y-4"
+        className="relative z-10 flex-1 flex flex-col justify-between"
         style={{
-          padding: '12px 18mm 14mm 18mm',
+          padding: '14px 16mm 14mm 16mm',
         }}
       >
-        
         {/* Personal Details Section */}
-        <div className="flex gap-8 items-start">
+        <div className="flex gap-7 items-start">
           {/* Photo & ID Box */}
           <div className="flex flex-col items-center flex-shrink-0">
-            <div className="w-[148px] h-[185px] bg-slate-100 border border-slate-400 overflow-hidden relative shadow-xs">
+            <div className="w-[140px] h-[175px] bg-slate-100 overflow-hidden relative">
               {visa.photo ? (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
@@ -79,64 +77,64 @@ export function VisaDocument({ visa, origin = '', isPrintPreview = false }: Visa
                 </div>
               )}
             </div>
-            <div className="mt-2 text-[13.5px] font-extrabold tracking-tight text-black text-center font-mono">
+            <div className="mt-2 text-[13px] font-bold text-black text-center tracking-tight">
               ID: {visa.idNumber}
             </div>
           </div>
 
           {/* Personal Info Grid */}
-          <div className="flex-1 grid grid-cols-2 gap-x-4 gap-y-3 pt-0.5">
+          <div className="flex-1 grid grid-cols-12 gap-y-2.5 pt-0.5">
             {/* Surname */}
-            <div className="col-span-1">
-              <div className="text-[14px] font-bold text-gray-900 leading-tight">Surname:</div>
-              <div className="text-[11.5px] text-gray-500 leading-none">Овог</div>
+            <div className="col-span-5">
+              <div className="text-[13.5px] font-bold text-black leading-tight">Surname:</div>
+              <div className="text-[11.5px] text-gray-500 leading-none italic mt-0.5">Овог</div>
             </div>
-            <div className="col-span-1 flex items-center">
-              <div className="text-[15px] font-extrabold text-black uppercase tracking-wide">
+            <div className="col-span-7 flex items-center">
+              <div className="text-[14px] font-bold text-black uppercase tracking-wide">
                 {visa.surname || '-'}
               </div>
             </div>
 
             {/* Name */}
-            <div className="col-span-1">
-              <div className="text-[14px] font-bold text-gray-900 leading-tight">Name:</div>
-              <div className="text-[11.5px] text-gray-500 leading-none">Нэр</div>
+            <div className="col-span-5">
+              <div className="text-[13.5px] font-bold text-black leading-tight">Name:</div>
+              <div className="text-[11.5px] text-gray-500 leading-none italic mt-0.5">Нэр</div>
             </div>
-            <div className="col-span-1 flex items-center">
-              <div className="text-[15px] font-extrabold text-black uppercase tracking-wide">
+            <div className="col-span-7 flex items-center">
+              <div className="text-[14px] font-bold text-black uppercase tracking-wide">
                 {visa.name || '-'}
               </div>
             </div>
 
             {/* Date of Birth */}
-            <div className="col-span-1">
-              <div className="text-[14px] font-bold text-gray-900 leading-tight">Date of birth:</div>
-              <div className="text-[11.5px] text-gray-500 leading-none">Төрсөн огноо</div>
+            <div className="col-span-5">
+              <div className="text-[13.5px] font-bold text-black leading-tight">Date of birth:</div>
+              <div className="text-[11.5px] text-gray-500 leading-none italic mt-0.5">Төрсөн огноо</div>
             </div>
-            <div className="col-span-1 flex items-center">
-              <div className="text-[15px] font-extrabold text-black uppercase tracking-wide font-mono">
+            <div className="col-span-7 flex items-center">
+              <div className="text-[14px] font-bold text-black uppercase">
                 {visa.dateOfBirth || '-'}
               </div>
             </div>
 
             {/* Gender */}
-            <div className="col-span-1">
-              <div className="text-[14px] font-bold text-gray-900 leading-tight">Gender:</div>
-              <div className="text-[11.5px] text-gray-500 leading-none">Хүйс</div>
+            <div className="col-span-5">
+              <div className="text-[13.5px] font-bold text-black leading-tight">Gender:</div>
+              <div className="text-[11.5px] text-gray-500 leading-none italic mt-0.5">Хүйс</div>
             </div>
-            <div className="col-span-1 flex items-center">
-              <div className="text-[15px] font-extrabold text-black uppercase tracking-wide">
+            <div className="col-span-7 flex items-center">
+              <div className="text-[14px] font-bold text-black uppercase">
                 {visa.gender || '-'}
               </div>
             </div>
 
             {/* Nationality */}
-            <div className="col-span-1">
-              <div className="text-[14px] font-bold text-gray-900 leading-tight">Nationality:</div>
-              <div className="text-[11.5px] text-gray-500 leading-none">Иргэний харьяалал</div>
+            <div className="col-span-5">
+              <div className="text-[13.5px] font-bold text-black leading-tight">Nationality:</div>
+              <div className="text-[11.5px] text-gray-500 leading-none italic mt-0.5">Иргэний харьяалал</div>
             </div>
-            <div className="col-span-1 flex items-center">
-              <div className="text-[15px] font-extrabold text-black uppercase tracking-wide">
+            <div className="col-span-7 flex items-center">
+              <div className="text-[14px] font-bold text-black uppercase">
                 {visa.nationality || '-'}
               </div>
             </div>
@@ -145,43 +143,43 @@ export function VisaDocument({ visa, origin = '', isPrintPreview = false }: Visa
 
         {/* Middle Section: Passport info + QR Code */}
         <div className="pt-2">
-          <div className="grid grid-cols-12 gap-4 items-start">
+          <div className="grid grid-cols-12 gap-6 items-start">
             {/* Passport Info Left Side */}
-            <div className="col-span-7">
-              <h2 className="text-[15.5px] font-bold text-gray-900 mb-2.5 tracking-tight">
+            <div className="col-span-7 space-y-1.5">
+              <h2 className="text-[14px] font-normal text-black mb-1">
                 Passport information
               </h2>
-              
-              <div className="grid grid-cols-2 gap-x-2 gap-y-2.5">
-                {/* Passport number */}
-                <div>
-                  <div className="text-[13.5px] font-bold text-gray-900 leading-tight">Passport number:</div>
-                  <div className="text-[11px] text-gray-500 leading-none italic">Паспортын дугаар</div>
-                </div>
-                <div className="flex items-center">
-                  <div className="text-[14.5px] font-extrabold text-black font-mono">
+
+              <div className="space-y-0.5">
+                {/* Passport number (Grey Row) */}
+                <div className="grid grid-cols-12 bg-[#ececec] px-2 py-1 items-center">
+                  <div className="col-span-6">
+                    <div className="text-[13px] font-bold text-black leading-tight">Passport number:</div>
+                    <div className="text-[11px] text-gray-500 leading-none italic mt-0.5">Паспортын дугаар</div>
+                  </div>
+                  <div className="col-span-6 text-[13px] font-bold text-black uppercase">
                     {visa.passportNumber}
                   </div>
                 </div>
 
-                {/* Passport type */}
-                <div>
-                  <div className="text-[13.5px] font-bold text-gray-900 leading-tight">Passport type:</div>
-                  <div className="text-[11px] text-gray-500 leading-none italic">Паспортын төрөл</div>
-                </div>
-                <div className="flex items-center">
-                  <div className="text-[14.5px] font-extrabold text-black uppercase">
+                {/* Passport type (White Row) */}
+                <div className="grid grid-cols-12 px-2 py-1 items-center">
+                  <div className="col-span-6">
+                    <div className="text-[13px] font-bold text-black leading-tight">Passport type:</div>
+                    <div className="text-[11px] text-gray-500 leading-none italic mt-0.5">Паспортын төрөл</div>
+                  </div>
+                  <div className="col-span-6 text-[13px] font-bold text-black uppercase">
                     {visa.passportType}
                   </div>
                 </div>
 
-                {/* Date of expiry */}
-                <div>
-                  <div className="text-[13.5px] font-bold text-gray-900 leading-tight">Date of expiry:</div>
-                  <div className="text-[11px] text-gray-500 leading-none italic">Дуусах хугацаа</div>
-                </div>
-                <div className="flex items-center">
-                  <div className="text-[14.5px] font-extrabold text-black font-mono">
+                {/* Date of expiry (Grey Row) */}
+                <div className="grid grid-cols-12 bg-[#ececec] px-2 py-1 items-center">
+                  <div className="col-span-6">
+                    <div className="text-[13px] font-bold text-black leading-tight">Date of expiry:</div>
+                    <div className="text-[11px] text-gray-500 leading-none italic mt-0.5">Дуусах хугацаа</div>
+                  </div>
+                  <div className="col-span-6 text-[13px] font-bold text-black uppercase">
                     {visa.dateOfExpiry}
                   </div>
                 </div>
@@ -189,119 +187,116 @@ export function VisaDocument({ visa, origin = '', isPrintPreview = false }: Visa
             </div>
 
             {/* QR Code on the Right */}
-            <div className="col-span-5 flex flex-col items-center justify-center -mt-8">
-              <div className="p-1 border border-slate-900 bg-white shadow-xs">
+            <div className="col-span-5 flex flex-col items-center justify-center -mt-6">
+              <div className="bg-white">
                 {qrCodeUrl ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img
                     src={qrCodeUrl}
                     alt="Mongolia eVisa QR Code"
-                    className="w-[148px] h-[148px] block"
+                    className="w-[138px] h-[138px] block"
                   />
                 ) : (
-                  <div className="w-[148px] h-[148px] bg-slate-100 flex items-center justify-center text-[10px] text-slate-400">
+                  <div className="w-[138px] h-[138px] bg-slate-100 flex items-center justify-center text-[10px] text-slate-400">
                     Loading QR...
                   </div>
                 )}
               </div>
-              <div className="mt-1.5 text-[12px] font-extrabold text-gray-900 tracking-tight text-center">
-                Electronic visa number: <span className="font-mono">{visa.electronicVisaNumber}</span>
+              <div className="mt-1 text-[12px] text-black text-center">
+                Electronic visa number: <span className="font-bold">{visa.electronicVisaNumber}</span>
               </div>
             </div>
           </div>
         </div>
 
         {/* Electronic Visa Information Section */}
-        <div className="pt-2.5 border-t border-slate-200">
-          <h2 className="text-[15.5px] font-bold text-gray-900 mb-2 tracking-tight">
+        <div className="pt-2 space-y-1.5">
+          <h2 className="text-[14px] font-normal text-black mb-1">
             Electronic visa information
           </h2>
 
-          {/* Inviter */}
-          <div className="grid grid-cols-12 gap-2 mb-2.5 items-center">
-            <div className="col-span-3">
-              <div className="text-[13.5px] font-bold text-gray-900 leading-tight">Inviter:</div>
-              <div className="text-[11px] text-gray-500 leading-none italic">Уригч</div>
+          {/* Inviter (White Row) */}
+          <div className="grid grid-cols-12 px-2 py-0.5 items-center">
+            <div className="col-span-4">
+              <div className="text-[13px] font-bold text-black leading-tight">Inviter:</div>
+              <div className="text-[11px] text-gray-500 leading-none italic mt-0.5">Уригч</div>
             </div>
-            <div className="col-span-9 text-[14.5px] font-extrabold text-black tracking-wide">
+            <div className="col-span-8 text-[13px] font-bold text-black uppercase tracking-wide">
               {visa.inviter}
             </div>
           </div>
 
-          {/* 2-Column Grid for Visa Details */}
-          <div className="grid grid-cols-2 gap-x-6 gap-y-2.5">
-            {/* Left Column */}
-            <div className="space-y-2.5">
-              <div className="grid grid-cols-2 gap-2">
-                <div>
-                  <div className="text-[13px] font-bold text-gray-900 leading-tight">Classification of visa:</div>
-                  <div className="text-[10.5px] text-gray-500 leading-none italic">Визийн ангилал</div>
-                </div>
-                <div className="text-[14px] font-extrabold text-black flex items-center">
-                  {visa.classificationOfVisa}
-                </div>
+          {/* 2-Column Table with Full-Width Alternating Striped Rows */}
+          <div className="space-y-0.5">
+            {/* Row 1 (Grey Row) */}
+            <div className="grid grid-cols-12 bg-[#ececec] px-2 py-1 items-center">
+              {/* Classification of visa */}
+              <div className="col-span-3">
+                <div className="text-[13px] font-bold text-black leading-tight">Classification of visa:</div>
+                <div className="text-[11px] text-gray-500 leading-none italic mt-0.5">Визийн ангилал</div>
+              </div>
+              <div className="col-span-3 text-[13px] font-bold text-black uppercase">
+                {visa.classificationOfVisa}
               </div>
 
-              <div className="grid grid-cols-2 gap-2">
-                <div>
-                  <div className="text-[13px] font-bold text-gray-900 leading-tight">Entries:</div>
-                  <div className="text-[10.5px] text-gray-500 leading-none italic">Визийн төрөл</div>
-                </div>
-                <div className="text-[14px] font-extrabold text-black flex items-center uppercase">
-                  {visa.entries}
-                </div>
+              {/* Date of issue */}
+              <div className="col-span-3">
+                <div className="text-[13px] font-bold text-black leading-tight">Date of issue:</div>
+                <div className="text-[11px] text-gray-500 leading-none italic mt-0.5">Олгосон огноо</div>
               </div>
-
-              <div className="grid grid-cols-2 gap-2">
-                <div>
-                  <div className="text-[13px] font-bold text-gray-900 leading-tight">Type of visa:</div>
-                  <div className="text-[10.5px] text-gray-500 leading-none italic">Визийн зориулалт</div>
-                </div>
-                <div className="text-[14px] font-extrabold text-black flex items-center uppercase">
-                  {visa.typeOfVisa}
-                </div>
+              <div className="col-span-3 text-[13px] font-bold text-black uppercase">
+                {visa.dateOfIssue}
               </div>
             </div>
 
-            {/* Right Column */}
-            <div className="space-y-2.5">
-              <div className="grid grid-cols-2 gap-2">
-                <div>
-                  <div className="text-[13px] font-bold text-gray-900 leading-tight">Date of issue:</div>
-                  <div className="text-[10.5px] text-gray-500 leading-none italic">Олгосон огноо</div>
-                </div>
-                <div className="text-[14px] font-extrabold text-black flex items-center font-mono">
-                  {visa.dateOfIssue}
-                </div>
+            {/* Row 2 (White Row) */}
+            <div className="grid grid-cols-12 px-2 py-1 items-center">
+              {/* Entries */}
+              <div className="col-span-3">
+                <div className="text-[13px] font-bold text-black leading-tight">Entries:</div>
+                <div className="text-[11px] text-gray-500 leading-none italic mt-0.5">Визийн төрөл</div>
+              </div>
+              <div className="col-span-3 text-[13px] font-bold text-black uppercase">
+                {visa.entries}
               </div>
 
-              <div className="grid grid-cols-2 gap-2">
-                <div>
-                  <div className="text-[13px] font-bold text-gray-900 leading-tight">Enter before:</div>
-                  <div className="text-[10.5px] text-gray-500 leading-none italic">Хүчинтэй хугацаа</div>
-                </div>
-                <div className="text-[14px] font-extrabold text-black flex items-center font-mono">
-                  {visa.enterBefore}
-                </div>
+              {/* Enter before */}
+              <div className="col-span-3">
+                <div className="text-[13px] font-bold text-black leading-tight">Enter before:</div>
+                <div className="text-[11px] text-gray-500 leading-none italic mt-0.5">Хүчинтэй хугацаа</div>
+              </div>
+              <div className="col-span-3 text-[13px] font-bold text-black uppercase">
+                {visa.enterBefore}
+              </div>
+            </div>
+
+            {/* Row 3 (Grey Row) */}
+            <div className="grid grid-cols-12 bg-[#ececec] px-2 py-1 items-center">
+              {/* Type of visa */}
+              <div className="col-span-3">
+                <div className="text-[13px] font-bold text-black leading-tight">Type of visa:</div>
+                <div className="text-[11px] text-gray-500 leading-none italic mt-0.5">Визийн зориулалт</div>
+              </div>
+              <div className="col-span-3 text-[13px] font-bold text-black uppercase">
+                {visa.typeOfVisa}
               </div>
 
-              <div className="grid grid-cols-2 gap-2">
-                <div>
-                  <div className="text-[13px] font-bold text-gray-900 leading-tight">Duration of stay:</div>
-                  <div className="text-[10.5px] text-gray-500 leading-none italic">Байх хугацаа</div>
-                </div>
-                <div className="text-[14px] font-extrabold text-black flex items-center uppercase font-mono">
-                  {visa.durationOfStay}
-                </div>
+              {/* Duration of stay */}
+              <div className="col-span-3">
+                <div className="text-[13px] font-bold text-black leading-tight">Duration of stay:</div>
+                <div className="text-[11px] text-gray-500 leading-none italic mt-0.5">Байх хугацаа</div>
+              </div>
+              <div className="col-span-3 text-[13px] font-bold text-black uppercase">
+                {visa.durationOfStay}
               </div>
             </div>
           </div>
         </div>
 
         {/* Notes Section */}
-        <div className="pt-2.5 border-t border-slate-200 text-[11.5px] leading-relaxed text-gray-800">
-          <div className="font-bold text-[13px] text-black mb-1">Notes:</div>
-          <ul className="space-y-1 list-disc list-outside pl-4 marker:text-black">
+        <div className="pt-2 text-[11px] leading-relaxed text-black">
+          <div className="font-bold text-[12.5px] text-black mb-1">Notes:</div>
+          <ul className="space-y-0.5 list-disc list-outside pl-4 marker:text-black">
             <li>The validity of this electronic visa can be verified by QR code.</li>
             <li>In case that the records in your electronic visa and passport differ, your electronic visa will be considered invalid.</li>
             <li>In exceptional circumstances, it is possible that relevant authorities may refuse your entry to Mongolia.</li>
@@ -313,17 +308,15 @@ export function VisaDocument({ visa, origin = '', isPrintPreview = false }: Visa
         </div>
 
         {/* Footer with Contact & Inviter Phone */}
-        <div className="pt-3 border-t border-slate-300">
-          <div className="text-[10.5px] text-center text-gray-800 font-semibold leading-tight px-4">
-            Contact us: <span className="font-bold">+976-1800-1882</span>, <span className="underline">www.immigration.gov.mn</span>, immigration Agency of Mongolia, Government Implementing Agency, Ulaanbaatar Mongolia
+        <div className="pt-2">
+          <div className="text-[10px] text-center text-black font-bold leading-tight px-2">
+            Contact us: +976-1800-1882, www.immigration.gov.mn, immigration Agency of Mongolia, Government Implementing Agency, Ulaanbaatar Mongolia
           </div>
-          <div className="flex justify-end pt-1.5 pr-2">
-            <div className="text-[11px] text-gray-700 font-medium">
-              Inviter&apos;s Phone Number: <span className="font-bold text-black font-mono">{visa.inviterPhone}</span>
-            </div>
+          <div className="flex flex-col items-end text-right pt-2 text-[11px] text-gray-600 font-normal leading-snug">
+            <div>Inviter&apos;s Phone Number:</div>
+            <div>{visa.inviterPhone}</div>
           </div>
         </div>
-
       </div>
     </div>
   );

@@ -55,7 +55,7 @@ export default async function HomePage() {
 
       {/* Hero & Verification Section */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 space-y-12 flex-1 w-full">
-        
+
         {/* Banner Graphic Frame */}
         <div className="w-full  hidden md:block bg-white rounded-2xl border border-slate-200/90 p-2 sm:p-3 shadow-sm overflow-hidden">
           {/* eslint-disable-next-line @next/next/no-img-element */}

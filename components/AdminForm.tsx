@@ -166,10 +166,10 @@ export function AdminForm({ initialData, onSaved }: AdminFormProps) {
 
       {/* Main Grid: Form on Left, Live Preview on Right */}
       <div className="grid grid-cols-1 xl:grid-cols-12 gap-8 items-start">
-        
+
         {/* Form Container */}
         <div className={`xl:col-span-${showLivePreview ? '6' : '12'} bg-white border border-slate-200/90 rounded-2xl p-6 shadow-sm`}>
-          
+
           {/* Header & Tabs */}
           <div className="flex flex-wrap items-center justify-between gap-4 pb-5 border-b border-slate-200">
             <div>
@@ -209,11 +209,10 @@ export function AdminForm({ initialData, onSaved }: AdminFormProps) {
             <button
               type="button"
               onClick={() => setActiveTab('personal')}
-              className={`pb-2.5 px-3 text-xs font-bold border-b-2 transition flex items-center gap-1.5 cursor-pointer ${
-                activeTab === 'personal'
+              className={`pb-2.5 px-3 text-xs font-bold border-b-2 transition flex items-center gap-1.5 cursor-pointer ${activeTab === 'personal'
                   ? 'border-blue-600 text-blue-700'
                   : 'border-transparent text-slate-500 hover:text-slate-800'
-              }`}
+                }`}
             >
               <User className="w-3.5 h-3.5" />
               1. Personal Info
@@ -221,11 +220,10 @@ export function AdminForm({ initialData, onSaved }: AdminFormProps) {
             <button
               type="button"
               onClick={() => setActiveTab('passport')}
-              className={`pb-2.5 px-3 text-xs font-bold border-b-2 transition flex items-center gap-1.5 cursor-pointer ${
-                activeTab === 'passport'
+              className={`pb-2.5 px-3 text-xs font-bold border-b-2 transition flex items-center gap-1.5 cursor-pointer ${activeTab === 'passport'
                   ? 'border-blue-600 text-blue-700'
                   : 'border-transparent text-slate-500 hover:text-slate-800'
-              }`}
+                }`}
             >
               <FileText className="w-3.5 h-3.5" />
               2. Passport
@@ -233,11 +231,10 @@ export function AdminForm({ initialData, onSaved }: AdminFormProps) {
             <button
               type="button"
               onClick={() => setActiveTab('visa')}
-              className={`pb-2.5 px-3 text-xs font-bold border-b-2 transition flex items-center gap-1.5 cursor-pointer ${
-                activeTab === 'visa'
+              className={`pb-2.5 px-3 text-xs font-bold border-b-2 transition flex items-center gap-1.5 cursor-pointer ${activeTab === 'visa'
                   ? 'border-blue-600 text-blue-700'
                   : 'border-transparent text-slate-500 hover:text-slate-800'
-              }`}
+                }`}
             >
               <Sparkles className="w-3.5 h-3.5" />
               3. Visa Details
@@ -245,7 +242,7 @@ export function AdminForm({ initialData, onSaved }: AdminFormProps) {
           </div>
 
           <form onSubmit={handleSubmit} className="mt-5 space-y-5">
-            
+
             {/* Tab 1: Personal Info */}
             {activeTab === 'personal' && (
               <div className="space-y-4">
@@ -271,9 +268,8 @@ export function AdminForm({ initialData, onSaved }: AdminFormProps) {
 
                     <div className="flex flex-wrap items-center gap-2">
                       <label
-                        className={`inline-flex items-center gap-1.5 px-3 py-1.5 bg-white hover:bg-slate-50 border border-slate-300 rounded-lg text-xs font-semibold text-slate-700 shadow-xs transition ${
-                          uploadingPhoto ? 'opacity-50 cursor-wait' : 'cursor-pointer'
-                        }`}
+                        className={`inline-flex items-center gap-1.5 px-3 py-1.5 bg-white hover:bg-slate-50 border border-slate-300 rounded-lg text-xs font-semibold text-slate-700 shadow-xs transition ${uploadingPhoto ? 'opacity-50 cursor-wait' : 'cursor-pointer'
+                          }`}
                       >
                         {uploadingPhoto ? (
                           <>
@@ -341,7 +337,7 @@ export function AdminForm({ initialData, onSaved }: AdminFormProps) {
                       onChange={handleChange}
                       placeholder="e.g. V2605200900008"
                       required
-                      className="w-full px-3 py-2 bg-slate-50/80 border border-slate-200 rounded-lg text-sm text-slate-900 focus:bg-white focus:outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-50 font-mono"
+                      className="w-full px-3 py-2 bg-slate-50/80 border border-slate-200 rounded-lg text-sm text-slate-900 focus:bg-white focus:outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-50 "
                     />
                   </div>
 
@@ -389,7 +385,7 @@ export function AdminForm({ initialData, onSaved }: AdminFormProps) {
                       onChange={handleChange}
                       placeholder="e.g. 2006 FEB 01"
                       required
-                      className="w-full px-3 py-2 bg-slate-50/80 border border-slate-200 rounded-lg text-sm text-slate-900 focus:bg-white focus:outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-50 font-mono"
+                      className="w-full px-3 py-2 bg-slate-50/80 border border-slate-200 rounded-lg text-sm text-slate-900 focus:bg-white focus:outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-50 "
                     />
                   </div>
 
@@ -444,7 +440,7 @@ export function AdminForm({ initialData, onSaved }: AdminFormProps) {
                       onChange={handleChange}
                       placeholder="e.g. A09653676"
                       required
-                      className="w-full px-3 py-2 bg-slate-50/80 border border-slate-200 rounded-lg text-sm text-slate-900 focus:bg-white focus:outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-50 font-mono uppercase"
+                      className="w-full px-3 py-2 bg-slate-50/80 border border-slate-200 rounded-lg text-sm text-slate-900 focus:bg-white focus:outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-50  uppercase"
                     />
                   </div>
 
@@ -478,7 +474,7 @@ export function AdminForm({ initialData, onSaved }: AdminFormProps) {
                       onChange={handleChange}
                       placeholder="e.g. 12 OCT 2035"
                       required
-                      className="w-full px-3 py-2 bg-slate-50/80 border border-slate-200 rounded-lg text-sm text-slate-900 focus:bg-white focus:outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-50 font-mono uppercase"
+                      className="w-full px-3 py-2 bg-slate-50/80 border border-slate-200 rounded-lg text-sm text-slate-900 focus:bg-white focus:outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-50  uppercase"
                     />
                   </div>
                 </div>
@@ -501,7 +497,7 @@ export function AdminForm({ initialData, onSaved }: AdminFormProps) {
                       onChange={handleChange}
                       placeholder="e.g. MNG260504156"
                       required
-                      className="w-full px-3 py-2 bg-slate-50/80 border border-slate-200 rounded-lg text-sm text-slate-900 focus:bg-white focus:outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-50 font-mono uppercase"
+                      className="w-full px-3 py-2 bg-slate-50/80 border border-slate-200 rounded-lg text-sm text-slate-900 focus:bg-white focus:outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-50  uppercase"
                     />
                   </div>
 
@@ -533,7 +529,7 @@ export function AdminForm({ initialData, onSaved }: AdminFormProps) {
                       onChange={handleChange}
                       placeholder="e.g. C7"
                       required
-                      className="w-full px-3 py-2 bg-slate-50/80 border border-slate-200 rounded-lg text-sm text-slate-900 focus:bg-white focus:outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-50 font-mono uppercase"
+                      className="w-full px-3 py-2 bg-slate-50/80 border border-slate-200 rounded-lg text-sm text-slate-900 focus:bg-white focus:outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-50  uppercase"
                     />
                   </div>
 
@@ -583,7 +579,7 @@ export function AdminForm({ initialData, onSaved }: AdminFormProps) {
                       onChange={handleChange}
                       placeholder="e.g. 2026 MAY 27"
                       required
-                      className="w-full px-3 py-2 bg-slate-50/80 border border-slate-200 rounded-lg text-sm text-slate-900 focus:bg-white focus:outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-50 font-mono uppercase"
+                      className="w-full px-3 py-2 bg-slate-50/80 border border-slate-200 rounded-lg text-sm text-slate-900 focus:bg-white focus:outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-50  uppercase"
                     />
                   </div>
 
@@ -599,7 +595,7 @@ export function AdminForm({ initialData, onSaved }: AdminFormProps) {
                       onChange={handleChange}
                       placeholder="e.g. 2026 OCT 24"
                       required
-                      className="w-full px-3 py-2 bg-slate-50/80 border border-slate-200 rounded-lg text-sm text-slate-900 focus:bg-white focus:outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-50 font-mono uppercase"
+                      className="w-full px-3 py-2 bg-slate-50/80 border border-slate-200 rounded-lg text-sm text-slate-900 focus:bg-white focus:outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-50  uppercase"
                     />
                   </div>
 
@@ -615,7 +611,7 @@ export function AdminForm({ initialData, onSaved }: AdminFormProps) {
                       onChange={handleChange}
                       placeholder="e.g. 0 DAY(S) or 30 DAY(S)"
                       required
-                      className="w-full px-3 py-2 bg-slate-50/80 border border-slate-200 rounded-lg text-sm text-slate-900 focus:bg-white focus:outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-50 font-mono uppercase"
+                      className="w-full px-3 py-2 bg-slate-50/80 border border-slate-200 rounded-lg text-sm text-slate-900 focus:bg-white focus:outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-50  uppercase"
                     />
                   </div>
 
@@ -631,7 +627,7 @@ export function AdminForm({ initialData, onSaved }: AdminFormProps) {
                       onChange={handleChange}
                       placeholder="e.g. 80101507"
                       required
-                      className="w-full px-3 py-2 bg-slate-50/80 border border-slate-200 rounded-lg text-sm text-slate-900 focus:bg-white focus:outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-50 font-mono"
+                      className="w-full px-3 py-2 bg-slate-50/80 border border-slate-200 rounded-lg text-sm text-slate-900 focus:bg-white focus:outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-50 "
                     />
                   </div>
                 </div>

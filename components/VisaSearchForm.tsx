@@ -44,7 +44,7 @@ export function VisaSearchForm({ sampleVisaId, sampleVisaName }: VisaSearchFormP
       </div>
 
       <p className="text-xs sm:text-sm text-slate-600 mb-4 leading-relaxed">
-        Enter the Electronic Visa Number (e.g. <span className="font-mono font-semibold text-slate-800">MNG260504156</span>), Applicant Identification Code, or Document ID to verify official clearance status.
+        Enter the Electronic Visa Number (e.g. <span className=" font-semibold text-slate-800">MNG260504156</span>), Applicant Identification Code, or Document ID to verify official clearance status.
       </p>
 
       <form onSubmit={handleSearch} className="space-y-3">
@@ -59,7 +59,7 @@ export function VisaSearchForm({ sampleVisaId, sampleVisaName }: VisaSearchFormP
                 setQuery(e.target.value);
                 if (errorMessage) setErrorMessage(null);
               }}
-              className="w-full pl-10 pr-4 py-3 bg-slate-50/90 border border-slate-300 rounded-xl text-xs sm:text-sm text-slate-900 placeholder-slate-400 focus:bg-white focus:outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-100 font-mono transition"
+              className="w-full pl-10 pr-4 py-3 bg-slate-50/90 border border-slate-300 rounded-xl text-xs sm:text-sm text-slate-900 placeholder-slate-400 focus:bg-white focus:outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-100  transition"
             />
           </div>
 

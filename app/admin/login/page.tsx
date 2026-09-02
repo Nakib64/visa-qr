@@ -110,7 +110,7 @@ function LoginFormContent() {
 
       {/* Main Authentication Card */}
       <div className="bg-white/95 backdrop-blur-md rounded-3xl border border-slate-200 shadow-xl p-6 sm:p-8 space-y-6">
-        
+
         <div className="border-b border-slate-100 pb-4">
           <h2 className="text-base font-bold text-slate-900 flex items-center gap-2">
             <Lock className="w-4 h-4 text-blue-600" />
@@ -131,7 +131,7 @@ function LoginFormContent() {
             <p className="leading-relaxed text-rose-700">
               5 consecutive failed password attempts detected. Access from your IP is paused for security.
             </p>
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-rose-100/80 font-mono font-bold text-rose-800 text-[11.5px]">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-rose-100/80  font-bold text-rose-800 text-[11.5px]">
               <Clock className="w-3.5 h-3.5" />
               Cooldown: {formatCountdown(retryCountdown)}
             </div>

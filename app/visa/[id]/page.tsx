@@ -22,10 +22,10 @@ export default async function VisaViewPage({ params }: PageProps) {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-100 via-slate-50 to-slate-100 text-slate-900 flex flex-col items-center py-4 sm:py-8 px-2 sm:px-4 print:p-0 print:m-0 print:bg-white">
-      
+
       {/* Top Floating Action Bar (Hidden during Print, NO Admin Link) */}
       <div className="w-full max-w-[794px] mb-4 sm:mb-6 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4 bg-white/90 backdrop-blur-md border border-slate-200/90 rounded-2xl p-3.5 sm:p-4 shadow-lg shadow-slate-200/60 print:hidden no-print">
-        
+
         {/* Verification Status Badge */}
         <div className="flex items-center gap-3 w-full sm:w-auto">
           <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-600 flex-shrink-0 shadow-xs">
@@ -41,7 +41,7 @@ export default async function VisaViewPage({ params }: PageProps) {
               </span>
             </div>
             <div className="text-[11px] sm:text-xs text-slate-500">
-              Immigration Agency of Mongolia • <span className="font-mono font-medium text-slate-700">{visa.electronicVisaNumber}</span>
+              Immigration Agency of Mongolia • <span className=" font-medium text-slate-700">{visa.electronicVisaNumber}</span>
             </div>
           </div>
         </div>

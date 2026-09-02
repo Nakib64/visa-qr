@@ -187,7 +187,7 @@ export default function AdminDashboardPage() {
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full flex-1">
-        
+
         {/* If creating or editing a visa */}
         {isCreating || selectedVisa ? (
           <div className="space-y-6">
@@ -214,7 +214,7 @@ export default function AdminDashboardPage() {
         ) : (
           /* Visa Records List Dashboard */
           <div className="space-y-6">
-            
+
             {/* Quick Stats & Database Banner */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div className="bg-white/90 border border-slate-200/90 rounded-2xl p-5 flex items-center gap-4 shadow-sm hover:shadow-md transition-all">
@@ -325,7 +325,7 @@ export default function AdminDashboardPage() {
                                 <div className="font-bold text-slate-900 text-sm uppercase">
                                   {visa.name} {visa.surname}
                                 </div>
-                                <div className="text-[11px] text-slate-500 font-mono">
+                                <div className="text-[11px] text-slate-500 ">
                                   DOB: {visa.dateOfBirth} • {visa.gender}
                                 </div>
                               </div>
@@ -333,15 +333,15 @@ export default function AdminDashboardPage() {
                           </td>
 
                           <td className="py-3.5 px-4">
-                            <div className="font-mono font-bold text-blue-700 text-xs">
+                            <div className=" font-bold text-blue-700 text-xs">
                               {visa.electronicVisaNumber}
                             </div>
-                            <div className="text-[11px] text-slate-500 font-mono">
+                            <div className="text-[11px] text-slate-500 ">
                               ID: {visa.idNumber}
                             </div>
                           </td>
 
-                          <td className="py-3.5 px-4 font-mono font-bold text-slate-900">
+                          <td className="py-3.5 px-4  font-bold text-slate-900">
                             {visa.passportNumber}
                           </td>
 
@@ -352,7 +352,7 @@ export default function AdminDashboardPage() {
                           </td>
 
                           <td className="py-3.5 px-4">
-                            <div className="text-slate-800 font-mono text-[11.5px] font-medium">
+                            <div className="text-slate-800  text-[11.5px] font-medium">
                               {visa.dateOfIssue} → {visa.enterBefore}
                             </div>
                             <div className="text-[10px] text-slate-500">

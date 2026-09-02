@@ -16,7 +16,7 @@ export function OfficialStamps({
   return (
     <>
       {/* 1. Rectangular Issue & Entry Red Stamp (over Date of Issue / Enter before box) */}
-      <div 
+      <div
         className="absolute pointer-events-none select-none z-10 opacity-75 mix-blend-multiply"
         style={{
           top: '550px',
@@ -98,7 +98,7 @@ export function OfficialStamps({
         <div className="relative border-[2px] border-red-700/85 rounded p-2.5 w-[370px] bg-red-50/10 text-red-700/90 font-semibold text-[11px] leading-tight shadow-xs">
           {/* Top Date and Registration Header */}
           <div className="flex justify-between items-center text-[12px] font-bold pb-1 border-b border-red-600/30">
-            <span className="tracking-wide font-mono">{notaryDate}</span>
+            <span className="tracking-wide ">{notaryDate}</span>
             <span>
               Бүртгэлийн № <span className="font-serif italic text-[16px] text-red-900 font-extrabold px-1">{notaryNumber}</span>
             </span>
