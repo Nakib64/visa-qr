@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from 'react';
 import { VisaData } from '@/lib/types';
-import { MongoliaEmblem, HeaderBannerGraphic } from './MongoliaEmblem';
 import { generateQrDataUrl } from '@/lib/qr';
 
 interface VisaDocumentProps {
@@ -41,20 +40,14 @@ export function VisaDocument({ visa, origin = '', isPrintPreview = false }: Visa
         backgroundColor: '#ffffff',
       }}
     >
-      {/* Top Header Section */}
-      <div className="relative flex items-center justify-between pb-3.5 border-b-2 border-slate-200 overflow-hidden flex-shrink-0">
-        <HeaderBannerGraphic />
-        <div className="relative z-10 flex items-center gap-4">
-          <MongoliaEmblem className="w-[68px] h-[68px] flex-shrink-0 drop-shadow-xs" />
-          <div className="flex flex-col">
-            <h1 className="text-[28px] leading-tight font-black tracking-wider text-[#0A3C74] font-serif uppercase">
-              MONGOLIA
-            </h1>
-            <span className="text-[18px] leading-none font-bold text-[#1E5692] tracking-wide">
-              Electronic Visa
-            </span>
-          </div>
-        </div>
+      {/* Top Header Section with Official Mongolia Electronic Visa Banner */}
+      <div className="relative w-full pb-3 border-b-2 border-slate-300 overflow-hidden flex-shrink-0">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/mongolia-header-banner.png"
+          alt="MONGOLIA Electronic Visa"
+          className="w-full h-auto object-contain block select-none"
+        />
       </div>
 
       {/* Main Content Area - Expands Vertically to Fill Full Page */}
