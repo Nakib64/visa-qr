@@ -30,11 +30,14 @@ export function getPgPool(): Pool | null {
   if (!connectionString) return null;
 
   if (!pgPool) {
+    const isLocalhost =
+      connectionString.includes('localhost') ||
+      connectionString.includes('127.0.0.1') ||
+      connectionString.includes('sslmode=disable');
+
     pgPool = new Pool({
       connectionString,
-      ssl: {
-        rejectUnauthorized: false,
-      },
+      ssl: isLocalhost ? false : { rejectUnauthorized: false },
       max: 10,
       idleTimeoutMillis: 30000,
     });

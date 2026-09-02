@@ -31,9 +31,11 @@ export function AdminForm({ initialData, onSaved }: AdminFormProps) {
   );
 
   const [saving, setSaving] = useState(false);
+  const [uploadingPhoto, setUploadingPhoto] = useState(false);
   const [saveSuccess, setSaveSuccess] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<'personal' | 'passport' | 'visa'>('personal');
   const [showLivePreview, setShowLivePreview] = useState(true);
+  const [photoError, setPhotoError] = useState<string | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value, type } = e.target;
@@ -45,15 +47,51 @@ export function AdminForm({ initialData, onSaved }: AdminFormProps) {
     }
   };
 
-  const handlePhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handlePhotoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (uploadEvent) => {
-        const base64 = uploadEvent.target?.result as string;
-        setFormData((prev) => ({ ...prev, photo: base64 }));
-      };
-      reader.readAsDataURL(file);
+    if (!file) return;
+
+    setPhotoError(null);
+
+    // 1. Strict Image-only check
+    if (!file.type.startsWith('image/')) {
+      setPhotoError('Invalid file type. Please upload an image file (JPG, PNG, WEBP).');
+      e.target.value = '';
+      return;
+    }
+
+    // 2. Strict 2MB max size check (2 * 1024 * 1024 bytes)
+    const MAX_SIZE_BYTES = 2 * 1024 * 1024;
+    if (file.size > MAX_SIZE_BYTES) {
+      const sizeInMb = (file.size / (1024 * 1024)).toFixed(2);
+      setPhotoError(`Selected file is too large (${sizeInMb} MB). Maximum allowed size is 2MB.`);
+      e.target.value = '';
+      return;
+    }
+
+    try {
+      setUploadingPhoto(true);
+      const uploadData = new FormData();
+      uploadData.append('file', file);
+
+      const res = await fetch('/api/upload', {
+        method: 'POST',
+        body: uploadData,
+      });
+
+      const json = await res.json();
+
+      if (json.success && json.url) {
+        setFormData((prev) => ({ ...prev, photo: json.url }));
+        setPhotoError(null);
+      } else {
+        setPhotoError(json.error || 'Failed to upload image file.');
+      }
+    } catch (err: any) {
+      setPhotoError('Network error uploading image: ' + err.message);
+    } finally {
+      setUploadingPhoto(false);
+      e.target.value = '';
     }
   };
 
@@ -222,36 +260,69 @@ export function AdminForm({ initialData, onSaved }: AdminFormProps) {
                     )}
                   </div>
                   <div className="flex-1 space-y-2 w-full">
-                    <label className="block text-xs font-bold text-slate-700">
-                      Applicant Photo (Зураг)
-                    </label>
+                    <div className="flex items-center justify-between">
+                      <label className="block text-xs font-bold text-slate-700">
+                        Applicant Photo (Зураг)
+                      </label>
+                      <span className="text-[10.5px] text-slate-500 font-medium">
+                        Max 2MB • JPG, PNG, WEBP
+                      </span>
+                    </div>
+
                     <div className="flex flex-wrap items-center gap-2">
-                      <label className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white hover:bg-slate-50 border border-slate-300 rounded-lg text-xs font-semibold text-slate-700 shadow-xs cursor-pointer transition">
-                        <Upload className="w-3.5 h-3.5 text-blue-600" />
-                        Upload Image File
+                      <label
+                        className={`inline-flex items-center gap-1.5 px-3 py-1.5 bg-white hover:bg-slate-50 border border-slate-300 rounded-lg text-xs font-semibold text-slate-700 shadow-xs transition ${
+                          uploadingPhoto ? 'opacity-50 cursor-wait' : 'cursor-pointer'
+                        }`}
+                      >
+                        {uploadingPhoto ? (
+                          <>
+                            <svg className="animate-spin h-3.5 w-3.5 text-blue-600" fill="none" viewBox="0 0 24 24">
+                              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                            </svg>
+                            Uploading...
+                          </>
+                        ) : (
+                          <>
+                            <Upload className="w-3.5 h-3.5 text-blue-600" />
+                            Choose Image File
+                          </>
+                        )}
                         <input
                           type="file"
-                          accept="image/*"
+                          accept="image/png, image/jpeg, image/webp, image/jpg"
                           onChange={handlePhotoUpload}
+                          disabled={uploadingPhoto}
                           className="hidden"
                         />
                       </label>
                       {formData.photo && (
                         <button
                           type="button"
-                          onClick={() => setFormData((prev) => ({ ...prev, photo: '' }))}
-                          className="text-xs text-rose-600 hover:underline font-medium"
+                          onClick={() => {
+                            setFormData((prev) => ({ ...prev, photo: '' }));
+                            setPhotoError(null);
+                          }}
+                          className="text-xs text-rose-600 hover:underline font-medium cursor-pointer"
                         >
                           Remove Photo
                         </button>
                       )}
                     </div>
+
+                    {photoError && (
+                      <div className="text-[11px] font-semibold text-rose-600 bg-rose-50 border border-rose-200 rounded-lg px-2.5 py-1.5 animate-in fade-in">
+                        ⚠ {photoError}
+                      </div>
+                    )}
+
                     <input
                       type="text"
                       name="photo"
                       value={formData.photo || ''}
                       onChange={handleChange}
-                      placeholder="Or paste image URL / Data URL"
+                      placeholder="Or paste image URL / Base64 Data URL"
                       className="w-full px-2.5 py-1.5 bg-white border border-slate-300 rounded-lg text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-blue-600"
                     />
                   </div>

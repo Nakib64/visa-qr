@@ -66,8 +66,9 @@ export async function middleware(request: NextRequest) {
   // - DELETE /api/visas/:id (delete visa)
   const isBulkVisasGet = pathname === '/api/visas' && method === 'GET';
   const isVisaMutation = pathname.startsWith('/api/visas') && ['POST', 'PUT', 'DELETE'].includes(method);
+  const isUpload = pathname === '/api/upload';
 
-  if (isBulkVisasGet || isVisaMutation) {
+  if (isBulkVisasGet || isVisaMutation || isUpload) {
     if (!isAuthenticated) {
       return NextResponse.json(
         {
@@ -94,5 +95,6 @@ export const config = {
     '/admin/:path*',
     '/api/visas/:path*',
     '/api/visas',
+    '/api/upload',
   ],
 };
