@@ -65,7 +65,7 @@ export function VisaDocument({ visa, origin = '', isPrintPreview = false }: Visa
         <div className="flex gap-7 items-start">
           {/* Photo & ID Box */}
           <div className="flex flex-col items-center flex-shrink-0">
-            <div className="w-[137px] h-[170px] bg-slate-100 overflow-hidden relative">
+            <div className="w-[35mm] h-[45mm] bg-slate-100 overflow-hidden relative">
               {visa.photo && !photoFailed ? (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
