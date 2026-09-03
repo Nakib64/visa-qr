@@ -533,7 +533,7 @@ export function MongoliaPortalHome({ sampleVisaId, sampleVisaName }: MongoliaPor
         {/* =====================================================================
             TOP NAVIGATION BAR (Transparent, seamlessly matching hero background)
             ===================================================================== */}
-        <header className="relative z-30 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-3 flex items-center justify-between">
+        <header className="relative z-30 max-w-full mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-3 flex items-center justify-between">
           
           {/* Mobile Hamburger Button + Logo Emblem */}
           <div className="flex items-center gap-3">
@@ -622,88 +622,94 @@ export function MongoliaPortalHome({ sampleVisaId, sampleVisaName }: MongoliaPor
         </header>
 
         {/* =====================================================================
-            MOBILE SLIDE-OVER DRAWER (Matching Reference Screenshot)
+            MOBILE SLIDE-OVER DRAWER (Smooth Slide-In/Slide-Out from Left)
             ===================================================================== */}
-        {mobileMenuOpen && (
-          <div className="lg:hidden fixed inset-0 z-50 flex">
-            {/* Backdrop Overlay */}
-            <div
-              className="fixed inset-0 bg-slate-950/60 backdrop-blur-2xs transition-opacity"
-              onClick={() => setMobileMenuOpen(false)}
-            />
+        <div
+          className={`lg:hidden fixed inset-0 z-50 transition-all duration-300 ${
+            mobileMenuOpen ? 'pointer-events-auto visible' : 'pointer-events-none invisible'
+          }`}
+        >
+          {/* Backdrop Overlay with smooth fade */}
+          <div
+            className={`fixed inset-0 bg-slate-950/60 backdrop-blur-2xs transition-opacity duration-300 ease-in-out ${
+              mobileMenuOpen ? 'opacity-100' : 'opacity-0'
+            }`}
+            onClick={() => setMobileMenuOpen(false)}
+          />
 
-            {/* Left White Drawer Panel */}
-            <div className="relative w-[270px] sm:w-[300px] max-w-[80vw] bg-white h-full shadow-2xl z-50 flex flex-col justify-between p-6 text-slate-800 animate-in slide-in-from-left duration-200">
-              <div className="space-y-6">
-                {/* Close Button Top Left */}
-                <div className="flex items-center justify-between pb-2 border-b border-slate-100">
-                  <button
-                    type="button"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="p-1 -ml-1 text-slate-500 hover:text-slate-900 transition cursor-pointer"
-                    aria-label="Close menu"
-                  >
-                    <X className="w-6 h-6" />
-                  </button>
-                </div>
-
-                {/* Vertical Navigation Links */}
-                <nav className="flex flex-col space-y-4 text-[15px] font-medium text-slate-800">
-                  <Link
-                    href="/"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="hover:text-blue-600 transition"
-                  >
-                    Home
-                  </Link>
-                  <a
-                    href="#services"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="hover:text-blue-600 transition"
-                  >
-                    Service
-                  </a>
-                  <a
-                    href="#faq"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="hover:text-blue-600 transition"
-                  >
-                    FAQ
-                  </a>
-                  <a
-                    href="#contact"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="hover:text-blue-600 transition"
-                  >
-                    Contact
-                  </a>
-                </nav>
-
-                {/* Blue Action Buttons */}
-                <div className="pt-2 space-y-2.5">
-                  <a
-                    href="#services"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="w-full inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#0052B4] hover:bg-[#004090] text-white text-xs font-semibold shadow-xs transition"
-                  >
-                    <FileText className="w-4 h-4" />
-                    COP17 - User guide
-                  </a>
-                  <a
-                    href="#services"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="w-full inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#0052B4] hover:bg-[#004090] text-white text-xs font-semibold shadow-xs transition"
-                  >
-                    <BookOpen className="w-4 h-4" />
-                    Manuals and instructions
-                  </a>
-                </div>
+          {/* Left White Drawer Panel with smooth transform */}
+          <div
+            className={`relative w-[270px] sm:w-[300px] max-w-[80vw] bg-white h-full shadow-2xl z-50 flex flex-col justify-between p-6 text-slate-800 transform transition-transform duration-300 ease-in-out ${
+              mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
+            }`}
+          >
+            <div className="space-y-6">
+              {/* Close Button Top Left */}
+              <div className="flex items-center justify-between pb-2 border-b border-slate-100">
+                <button
+                  type="button"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="p-1 -ml-1 text-slate-500 hover:text-slate-900 transition cursor-pointer"
+                  aria-label="Close menu"
+                >
+                  <X className="w-6 h-6" />
+                </button>
               </div>
 
-            
+              {/* Vertical Navigation Links */}
+              <nav className="flex flex-col space-y-4 text-[15px] font-medium text-slate-800">
+                <Link
+                  href="/"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="hover:text-blue-600 transition"
+                >
+                  Home
+                </Link>
+                <a
+                  href="#services"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="hover:text-blue-600 transition"
+                >
+                  Service
+                </a>
+                <a
+                  href="#faq"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="hover:text-blue-600 transition"
+                >
+                  FAQ
+                </a>
+                <a
+                  href="#contact"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="hover:text-blue-600 transition"
+                >
+                  Contact
+                </a>
+              </nav>
+
+              {/* Blue Action Buttons */}
+              <div className="pt-2 space-y-2.5">
+                <a
+                  href="#services"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="w-full inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#0052B4] hover:bg-[#004090] text-white text-xs font-semibold shadow-xs transition"
+                >
+                  <FileText className="w-4 h-4" />
+                  COP17 - User guide
+                </a>
+                <a
+                  href="#services"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="w-full inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#0052B4] hover:bg-[#004090] text-white text-xs font-semibold shadow-xs transition"
+                >
+                  <BookOpen className="w-4 h-4" />
+                  Manuals and instructions
+                </a>
+              </div>
             </div>
           </div>
-        )}
+        </div>
 
         {/* =====================================================================
             HERO MAIN CONTENT SECTION
