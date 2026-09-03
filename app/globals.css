@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-sans: var(--font-montserrat), Montserrat, sans-serif;
 }
 
 @layer base {
@@ -10,7 +10,7 @@
   }
   
   html, body {
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: var(--font-montserrat), Montserrat, sans-serif;
   }
 
   body {
