@@ -12,6 +12,11 @@ interface VisaDocumentProps {
 
 export function VisaDocument({ visa, origin = '', isPrintPreview = false }: VisaDocumentProps) {
   const [qrCodeUrl, setQrCodeUrl] = useState<string>('');
+  const [photoFailed, setPhotoFailed] = useState<boolean>(false);
+
+  useEffect(() => {
+    setPhotoFailed(false);
+  }, [visa.photo]);
 
   useEffect(() => {
     // Generate verification URL encoded in the QR code
@@ -40,7 +45,7 @@ export function VisaDocument({ visa, origin = '', isPrintPreview = false }: Visa
       }}
     >
       {/* Top Header Section with Official Mongolia Electronic Visa Banner */}
-      <div className="relative w-full overflow-hidden flex-shrink-0">
+      <div className="relative w-full border-b-2 border-slate-300 overflow-hidden flex-shrink-0">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/mongolia-header-banner.png"
@@ -51,7 +56,7 @@ export function VisaDocument({ visa, origin = '', isPrintPreview = false }: Visa
 
       {/* Main Content Area - Expands Vertically to Fill Full Page */}
       <div
-        className="relative z-10 flex-1 flex flex-col justify-between"
+        className="relative z-10 flex-1 flex flex-col justify-between space-y-4"
         style={{
           padding: '14px 16mm 14mm 16mm',
         }}
@@ -61,11 +66,12 @@ export function VisaDocument({ visa, origin = '', isPrintPreview = false }: Visa
           {/* Photo & ID Box */}
           <div className="flex flex-col items-center flex-shrink-0">
             <div className="w-[140px] h-[175px] bg-slate-100 overflow-hidden relative">
-              {visa.photo ? (
+              {visa.photo && !photoFailed ? (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
                   src={visa.photo}
                   alt={visa.name}
+                  onError={() => setPhotoFailed(true)}
                   className="w-full h-full object-cover"
                 />
               ) : (
@@ -77,7 +83,7 @@ export function VisaDocument({ visa, origin = '', isPrintPreview = false }: Visa
                 </div>
               )}
             </div>
-            <div className="mt-2 text-[13px] font-bold text-black text-center tracking-tight">
+            <div className="mt-2 text-[13px] font-bold text-black text-center tracking-wider">
               ID: {visa.idNumber}
             </div>
           </div>
